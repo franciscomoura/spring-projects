@@ -1,6 +1,5 @@
 package com.frandorado.loggingrequestresponsewithbody.interceptor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -16,9 +15,12 @@ import com.frandorado.loggingrequestresponsewithbody.service.LoggingService;
 @ControllerAdvice
 public class CustomResponseBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
     
-    @Autowired
-    LoggingService loggingService;
-    
+    private final LoggingService loggingService;
+
+    public CustomResponseBodyAdviceAdapter(LoggingService loggingService) {
+        this.loggingService = loggingService;
+    }
+
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         return true;

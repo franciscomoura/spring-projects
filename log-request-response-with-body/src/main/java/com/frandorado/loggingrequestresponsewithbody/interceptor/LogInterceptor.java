@@ -4,7 +4,6 @@ import javax.servlet.DispatcherType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,9 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Component
 public class LogInterceptor implements HandlerInterceptor {
     
-    @Autowired
-    LoggingService loggingService;
-    
+    private final LoggingService loggingService;
+
+    public LogInterceptor(LoggingService loggingService) {
+        this.loggingService = loggingService;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         
